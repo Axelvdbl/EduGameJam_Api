@@ -5,6 +5,8 @@ class Teacher < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   include DeviseTokenAuth::Concerns::User
 
+	has_one :channel
+
 	def render_api
 		{
 			id: self.id,

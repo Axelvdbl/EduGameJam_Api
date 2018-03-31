@@ -10,10 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180330213757) do
+ActiveRecord::Schema.define(version: 20180331105834) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "channels", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "teachers_id"
+    t.boolean "is_active", default: false
+    t.index ["teachers_id"], name: "index_channels_on_teachers_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.string "title"
+    t.string "percent"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "students", force: :cascade do |t|
+    t.string "lastname"
+    t.string "firstname"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "channels_id"
+    t.index ["channels_id"], name: "index_students_on_channels_id"
+  end
 
   create_table "teachers", force: :cascade do |t|
     t.string "provider", default: "email", null: false
@@ -44,4 +69,6 @@ ActiveRecord::Schema.define(version: 20180330213757) do
     t.index ["uid", "provider"], name: "index_teachers_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "channels", "teachers", column: "teachers_id"
+  add_foreign_key "students", "channels", column: "channels_id"
 end

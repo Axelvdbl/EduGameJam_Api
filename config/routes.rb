@@ -5,6 +5,9 @@ Rails.application.routes.draw do
 			mount_devise_token_auth_for 'Teacher', at: 'auth'
 
 			resources :teachers
+			resources :messages
+			resources :students
+			resources :channels
 
 		end
 	end
