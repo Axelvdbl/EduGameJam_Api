@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180331105834) do
+ActiveRecord::Schema.define(version: 20180403092230) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,11 +24,28 @@ ActiveRecord::Schema.define(version: 20180331105834) do
     t.index ["teachers_id"], name: "index_channels_on_teachers_id"
   end
 
-  create_table "messages", force: :cascade do |t|
-    t.string "title"
-    t.string "percent"
+  create_table "errors", force: :cascade do |t|
+    t.string "error"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "message_id"
+    t.index ["message_id"], name: "index_errors_on_message_id"
+  end
+
+  create_table "favorites", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "teacher_id"
+    t.bigint "message_id"
+    t.index ["message_id"], name: "index_favorites_on_message_id"
+    t.index ["teacher_id"], name: "index_favorites_on_teacher_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "percent", default: true
   end
 
   create_table "students", force: :cascade do |t|
@@ -70,5 +87,8 @@ ActiveRecord::Schema.define(version: 20180331105834) do
   end
 
   add_foreign_key "channels", "teachers", column: "teachers_id"
+  add_foreign_key "errors", "messages"
+  add_foreign_key "favorites", "messages"
+  add_foreign_key "favorites", "teachers"
   add_foreign_key "students", "channels", column: "channels_id"
 end

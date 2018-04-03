@@ -6,6 +6,7 @@ class Teacher < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
 	has_one :channel
+	has_many :favorites
 
 	def render_api
 		{

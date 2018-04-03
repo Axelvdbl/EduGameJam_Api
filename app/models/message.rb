@@ -1,5 +1,7 @@
 class Message < ApplicationRecord
 
+	has_many :favorites
+
 	def render_api
 		{
 			id: self.id,

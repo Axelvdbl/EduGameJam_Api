@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 			resources :messages
 			resources :students
 			resources :channels
+			resources :favorites, only: [:index, :create, :show, :update, :destroy]
 
 		end
 	end
