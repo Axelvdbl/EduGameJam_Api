@@ -8,7 +8,7 @@ class Favorite < ApplicationRecord
        id: self.id,
        created_at: self.created_at,
        teacher_id: self.teacher_id,
-       message_id: self.message_id
+       message_id: self.message_id,
     }
   end
 

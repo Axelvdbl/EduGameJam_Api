@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 			resources :students
 			resources :channels
 			resources :favorites, only: [:index, :create, :show, :update, :destroy]
+			resources :errors, only: [:index, :create, :show, :update, :destroy]
 
 		end
 	end
